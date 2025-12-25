@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Info</title>
+  </head>
+
+  <body>
+    <h1>Video Info</h1>
+    <form action="">
+      <div>
+        <label for="">Select a video</label>
+        <input type="file" accept="video/*" />
+      </div>
+      <button type="submit">Get Info</button>
+    </form>
+
+    <h1 id="result"></h1>
+
+    <Script>
+      const electron = require( "electron" );
+      const { ipcRenderer, webUtils } = electron;
+
+      document.querySelector( 'form' ).addEventListener( 'submit', ( event ) => {
+        event.preventDefault();
+
+        const file = document.querySelector( 'input' ).files[ 0 ];
+        console.log( file );
+        const path = webUtils.getPathForFile( file );
+        console.log( path );
+
+        ipcRenderer.send( 'video:submit', path );
+
+      } )
+      ipcRenderer.on( 'video:metadata', ( event, duration ) => {
+        document.querySelector( '#result' ).innerHTML = `Video is: ${ mah.round( duration * 100 ) / 100 } seconds`;
+      } );
+    </Script>
+  </body>
+
+</html>

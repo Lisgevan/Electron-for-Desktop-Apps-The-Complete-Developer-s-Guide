@@ -1,0 +1,18 @@
+{
+	"name": "001_video_info",
+	"version": "1.0.0",
+	"description": "",
+	"license": "ISC",
+	"author": "",
+	"type": "commonjs",
+	"main": "index.js",
+	"scripts": {
+		"electron": "electron ."
+	},
+	"devDependencies": {
+		"electron": "^39.2.7"
+	},
+	"dependencies": {
+		"fluent-ffmpeg": "^2.1.3"
+	}
+}
