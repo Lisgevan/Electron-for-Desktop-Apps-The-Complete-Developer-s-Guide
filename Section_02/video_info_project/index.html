@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Info</title>
+  </head>
+
+  <body>
+    <h1>Video Info</h1>
+    <form action="">
+      <div>
+        <label for="">Select a video</label>
+        <input type="file" name="" id="" accept="video/*">
+      </div>
+      <button type="submit">Get info</button>
+    </form>
+
+    <h1 id="result"></h1>
+
+    <script>
+      // const electron = require( "electron" );
+      // const { ipcRenderer, webUtils } = electron;
+
+      document.querySelector( 'form' ).addEventListener( 'submit', ( event ) => {
+        event.preventDefault()
+
+        const file = document.querySelector( 'input' ).files[ 0 ]
+        // const path = webUtils.getPathForFile( file );
+        const path = window.electron.getPathForFile( file );
+        // console.log( "path: ", path )
+        // ipcRenderer.send( 'video:submit', path )
+        window.electron.submitVideo( path );
+      } )
+
+      // ipcRenderer.on( 'video:metadata', ( event, duration ) => {
+      //   document.querySelector( '#result' ).innerHTML = `Video is ${ duration.toFixed( 2 ) } seconds.`
+      // } )
+      window.electron.receiveVideoMetadata( ( duration ) => {
+        document.querySelector(
+          "#result"
+        ).innerHTML = `Video is ${ duration.toFixed( 2 ) } seconds long.`;
+      } );
+
+    </script>
+  </body>
+
+</html>
